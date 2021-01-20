@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'backend',
     'backend.courses',
     'frontend',
-    'rest_framework'
+    'rest_framework',
+    'backend.users',
+    'backend.ecommerce',
 ]
 
 MIDDLEWARE = [
@@ -75,6 +77,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'vedic_maths.wsgi.application'
 
 
+AUTH_USER_MODEL = 'users.User'
+
+
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -103,6 +108,27 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    # "DEFAULT_PERMISSION_CLASSES": (
+    #     "adminapp.permissions.IsAuthorized",
+    #     "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly",
+    # ),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ),
+}
+
+REST_AUTH_SERIALIZERS = {
+    "USER_DETAILS_SERIALIZER": "adminapp.serializers.UserSerializer"
+}
+
+
 
 
 # Internationalization
